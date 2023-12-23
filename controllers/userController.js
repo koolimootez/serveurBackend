@@ -179,7 +179,7 @@ export function login(req , res){
  //resetpassword
 
   export function resetPassword(req , res){
-    User.findOneAndUpdate({email : {$eq : req.body.email}} , {password : req.body.password})
+    User.findOneAndUpdate({email : {$eq : req.body.email}} , {password : req.body.password} , {new:true})
     .then((user) =>{
       if (!user){
         return res.status(404).json({message : 'user not found'});
