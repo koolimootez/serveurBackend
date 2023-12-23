@@ -14,7 +14,7 @@ import restaurantRoutes from './routes/restaurantRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 
 const app = express();
-const port = process.env.PORT || 5005;
+const port = process.env.PORT || 7019;
 const databaseName = 'pdm';
 const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017';
 

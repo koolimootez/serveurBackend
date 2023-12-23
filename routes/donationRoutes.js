@@ -8,11 +8,12 @@ router
   .route('/')
   .get(getAllDonations)
   .post(
-    body('donateur').isMongoId(),
-    body('beneficiaire').isMongoId(),
-    body('idProduct').isMongoId(),
+   body('donateur').isMongoId(),
+   body('beneficiaire').isMongoId(),
+   body('idProduct').isMongoId(),
     body('quantite').isNumeric(),
-    body('dateDisponibilite').isISO8601(),
+    body('dateDisponibilite').isString(),//isISO8601(),
+    body('etat').isString(),
     createDonation
   );
 
@@ -21,11 +22,11 @@ router
   .get(getDonationById)
   .put(
     param('donationId').isMongoId(),
-    body('donateur').isMongoId(),
-    body('beneficiaire').isMongoId(),
+   body('donateur').isMongoId(),
+   body('beneficiaire').isMongoId(),
     body('idProduct').isMongoId(),
     body('quantite').isNumeric(),
-    body('dateDisponibilite').isISO8601(),
+    body('dateDisponibilite').isString(),//isISO8601(),
     body('etat').isString(),
     updateDonation
   )

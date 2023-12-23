@@ -24,7 +24,8 @@ const donationSchema = new Schema(
       required: true,
     },
     dateDisponibilite: {
-      type: Date,
+      //type: Date,
+      type:String,
       required: true,
     },
     etat: {

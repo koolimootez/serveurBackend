@@ -106,6 +106,7 @@ export function getAllUsers(req, res) {
 
 import { validationResult } from 'express-validator';
 import User from '../models/user.js';
+import { request } from 'express';
 
 export function getAllUsers(req, res) {
   User.find({})
@@ -144,6 +145,54 @@ export function getUserById(req, res) { // by username and password
     });
 }
 
+//login connect 
+export function login(req , res){
+  User.findOne({email : {$eq : req.body.email} , password : {$eq : req.body.password}})
+  .then((user) =>{
+    if(!user){
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(user);
+  })
+  .catch((err) => {
+    res.status(500).json({ error: err });
+  });
+}
+//end login 
+
+
+//search
+  export function search(req , res){
+    User.findOne({email : {$eq : req.body.email}})
+    .then((user) => {
+      if (!user){
+        return res.status(404).json({message : 'user not found'});
+      }
+      res.status(200).json(user);
+    })
+    .catch((err) =>{
+      res.status(500).json({error : err});
+    });
+}
+//end search
+
+ //resetpassword
+
+  export function resetPassword(req , res){
+    User.findOneAndUpdate({email : {$eq : req.body.email}} , {password : req.body.password})
+    .then((user) =>{
+      if (!user){
+        return res.status(404).json({message : 'user not found'});
+      }
+      
+      res.status(200).json(user);
+    })
+    .catch((err) =>{
+      res.status(500).json({error : err});
+    });
+  }
+
+ //endreset password
 export function updateUser(req, res) {
   if (!validationResult(req).isEmpty()) {
     return res.status(400).json({ errors: validationResult(req).array() });
@@ -170,6 +219,10 @@ export function updateUser(req, res) {
     });
 }
 
+
+
+
+
 export function deleteUser(req, res) {
   User.findByIdAndRemove(req.params.id)
     .then((user) => {
@@ -181,17 +234,5 @@ export function deleteUser(req, res) {
     .catch((err) => {
       res.status(500).json({ error: err });
     });
-}
-export function loginUser(req,res){
-  User.findUserByUsernameAndPassword(req.params.username,req.params.password)
-  .then((user)=>{
-    if(!user){
-      return res.status(404).json({Message:'user not found'});
-    }
-    res.status(200).json({Messege: "successfully operation of login"});
-  })
-  .catch((err) =>{
-    res.status(500).json({error:err});
-  });
 }
 

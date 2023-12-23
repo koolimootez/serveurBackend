@@ -7,9 +7,9 @@ export function getAllDonations(req, res) {
     .then((donations) => {
       let donationList = donations.map((donation) => ({
         id: donation._id,
-        donateur: donation.donateur,
+       donateur: donation.donateur,
         beneficiaire: donation.beneficiaire,
-        idProduct: donation.idProduct,
+       idProduct: donation.idProduct,
         quantite: donation.quantite,
         dateDisponibilite: donation.dateDisponibilite,
         etat: donation.etat,
@@ -27,9 +27,9 @@ export function createDonation(req, res) {
     res.status(400).json({ errors: validationResult(req).array() });
   } else {
     Donation.create({
-      donateur: req.body.donateur,
-      beneficiaire: req.body.beneficiaire,
-      idProduct: req.body.idProduct,
+     donateur: req.body.donateur,
+     beneficiaire: req.body.beneficiaire,
+     idProduct: req.body.idProduct,
       quantite: req.body.quantite,
       dateDisponibilite: req.body.dateDisponibilite,
       etat: req.body.etat || 'En attente',
@@ -37,9 +37,9 @@ export function createDonation(req, res) {
       .then((newDonation) => {
         res.status(201).json({
           id: newDonation._id,
-          donateur: newDonation.donateur,
-          beneficiaire: newDonation.beneficiaire,
-          idProduct: newDonation.idProduct,
+         donateur: newDonation.donateur,
+         beneficiaire: newDonation.beneficiaire,
+         idProduct: newDonation.idProduct,
           quantite: newDonation.quantite,
           dateDisponibilite: newDonation.dateDisponibilite,
           etat: newDonation.etat,
@@ -62,7 +62,7 @@ export function getDonationById(req, res) {
         id: donation._id,
         donateur: donation.donateur,
         beneficiaire: donation.beneficiaire,
-        idProduct: donation.idProduct,
+       idProduct: donation.idProduct,
         quantite: donation.quantite,
         dateDisponibilite: donation.dateDisponibilite,
         etat: donation.etat,
@@ -77,8 +77,8 @@ export function getDonationById(req, res) {
 export function updateDonation(req, res) {
   let newDonation = {
     donateur: req.body.donateur,
-    beneficiaire: req.body.beneficiaire,
-    idProduct: req.body.idProduct,
+   beneficiaire: req.body.beneficiaire,
+   idProduct: req.body.idProduct,
     quantite: req.body.quantite,
     dateDisponibilite: req.body.dateDisponibilite,
     etat: req.body.etat || 'En attente',
@@ -91,7 +91,7 @@ export function updateDonation(req, res) {
       }
       res.status(200).json({
         id: updatedDonation._id,
-        donateur: updatedDonation.donateur,
+         donateur: updatedDonation.donateur,
         beneficiaire: updatedDonation.beneficiaire,
         idProduct: updatedDonation.idProduct,
         quantite: updatedDonation.quantite,
