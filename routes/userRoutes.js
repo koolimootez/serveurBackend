@@ -15,6 +15,7 @@ router.route('/users')
     body('role').notEmpty(),
     addUser
   );
+  
 
 router.route('/users/:id')
   .get(param('id').isMongoId(), getUserById)

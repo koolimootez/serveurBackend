@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import morgan from 'morgan';
 import cors from 'cors';
 
+
 import { notFoundError, errorHandler } from './middlewares/error-handler.js';
 import autocollectRoutes from './routes/autocollectRoutes.js';
 import beneficiaireRoutes from './routes/beneficiaireRoutes.js';
@@ -52,3 +53,4 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });
+
