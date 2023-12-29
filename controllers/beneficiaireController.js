@@ -2,6 +2,17 @@
 import { validationResult } from 'express-validator';
 import Beneficiaire from '../models/beneficiaire.js';
 
+export function getAllBeneficiaires(req, res) {
+  Beneficiaire.find()
+    .exec()
+    .then((beneficiaires) => {
+      res.status(200).json(beneficiaires);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+}
+
 export function addBeneficiaire(req, res) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -11,17 +22,6 @@ export function addBeneficiaire(req, res) {
   Beneficiaire.create(req.body)
     .then((newBeneficiaire) => {
       res.status(201).json(newBeneficiaire);
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
-}
-
-export function getAllBeneficiaires(req, res) {
-  Beneficiaire.find()
-    .exec()
-    .then((beneficiaires) => {
-      res.status(200).json(beneficiaires);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
@@ -67,6 +67,7 @@ export function updatedBeneficiaire(req,res){
     res.status(500).json({ error: err });
   });
 }
+
 
 export function deleteBeneficiaire(req, res) {
   Beneficiaire.findByIdAndRemove(req.params.id)
