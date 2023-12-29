@@ -43,6 +43,43 @@ export function getBeneficiaireById(req, res) {
       res.status(500).json({ error: err.message });
     });
 }
+export function updatedBeneficiaire(req,res){
+  if (!validationResult(req).isEmpty()) {
+    return res.status(400).json({ errors: validationResult(req).array() });
+  }
+  const updatedBeneficiaire = {
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    phoneNumber: req.body.phoneNumber,
+    adresse: req.body.adresse,
+    role: req.body.role, 
+    mission:req.body.mission
+    };
+  Beneficiaire.findByIdAndUpdate(req.params.id, updatedBeneficiaire, { new: true })
+  .then((beneficiaire) => {
+    if (!beneficiaire) {
+      return res.status(404).json({ message: 'beneficiaire not found' });
+    }
+    res.status(200).json(beneficiaire);
+  })
+  .catch((err) => {
+    res.status(500).json({ error: err });
+  });
+}
+
+export function deleteBeneficiaire(req, res) {
+  Beneficiaire.findByIdAndRemove(req.params.id)
+    .then((beneficiaire) => {
+      if (!beneficiaire) {
+        return res.status(404).json({ message: 'beneficiaire not found' });
+      }
+      res.status(200).json({ message: 'beneficiaire deleted successfully' });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+    });
+}
 
 // Ajoutez d'autres fonctions du contrôleur bénéficiaire ici au besoin
 

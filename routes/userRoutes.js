@@ -1,6 +1,6 @@
 import express from 'express';
 import { body, param } from 'express-validator';
-import { getAllUsers, addUser, getUserById, updateUser, deleteUser ,login , search , resetPassword} from '../controllers/userController.js';
+import { getAllUsers, addUser, getUserById, updateUser, deleteUser ,login , search , resetPassword } from '../controllers/userController.js';
 
 const router = express.Router();
 
@@ -15,6 +15,7 @@ router.route('/users')
     body('role').notEmpty(),
     addUser
   );
+
   
 
 router.route('/users/:id')
@@ -30,6 +31,8 @@ router.route('/users/:id')
     updateUser
   )
   .delete(param('id').isMongoId(), deleteUser);
+
+
 
 
   router.route('/login')

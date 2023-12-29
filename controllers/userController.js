@@ -177,7 +177,6 @@ export function login(req , res){
 //end search
 
  //resetpassword
-
   export function resetPassword(req , res){
     User.findOneAndUpdate({email : {$eq : req.body.email}} , {password : req.body.password} , {new:true})
     .then((user) =>{
@@ -197,7 +196,6 @@ export function updateUser(req, res) {
   if (!validationResult(req).isEmpty()) {
     return res.status(400).json({ errors: validationResult(req).array() });
   }
-
   const updatedUser = {
     username: req.body.username,
     password: req.body.password,
@@ -206,7 +204,6 @@ export function updateUser(req, res) {
     adresse: req.body.adresse,
     role: req.body.role,
   };
-
   User.findByIdAndUpdate(req.params.id, updatedUser, { new: true })
     .then((user) => {
       if (!user) {
@@ -218,9 +215,6 @@ export function updateUser(req, res) {
       res.status(500).json({ error: err });
     });
 }
-
-
-
 
 
 export function deleteUser(req, res) {
