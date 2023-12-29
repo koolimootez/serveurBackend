@@ -1,6 +1,6 @@
 import express from 'express';
 import { body, param } from 'express-validator';
-import { getAllBeneficiaires, addBeneficiaire, getBeneficiaireById , updatedBeneficiaire ,deleteBeneficiaire , login} from '../controllers/beneficiaireController.js';
+import { getAllBeneficiaires, addBeneficiaire, getBeneficiaireById , updatedBeneficiaire ,deleteBeneficiaire , resetPassword , search , login} from '../controllers/beneficiaireController.js';
 
 const router = express.Router();
 
@@ -27,5 +27,24 @@ router.route('/beneficiaires/:id')
   )
   .delete(param('id').isMongoId(), deleteBeneficiaire);
   
+  router.route('/search')
+  .post(
+    body('email'),
+    search
+  );
 
+  router.route('/resetpassword')
+  .post(
+    body('email').isEmail(),
+    body('password').isLength({min : 6}),
+    resetPassword
+  )
+
+  router.route('/login')
+  
+  .post(
+    body('email').isEmail(),
+    body('password').isLength({min:6}),
+    login
+  );
 export default router;

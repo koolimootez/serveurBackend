@@ -84,4 +84,49 @@ export function deleteBeneficiaire(req, res) {
 
 // Ajoutez d'autres fonctions du contrôleur bénéficiaire ici au besoin
 
+//reset password beneficiaire
+export function resetPassword(req , res){
+  Beneficiaire.findOneAndUpdate({email : {$eq : req.body.email}} , {password : req.body.password} , {new:true})
+  .then((beneficiaire) =>{
+    if (!beneficiaire){
+      return res.status(404).json({message : 'beneficiaire not found'});
+    }
+    
+    res.status(200).json(beneficiaire);
+  })
+  .catch((err) =>{
+    res.status(500).json({error : err});
+  });
+}
 
+//end resept password beneficiaire
+
+//search
+export function search(req , res){
+  Beneficiaire.findOne({email : {$eq : req.body.email}})
+  .then((beneficiaire) => {
+    if (!beneficiaire){
+      return res.status(404).json({message : 'beneficiaire not found'});
+    }
+    res.status(200).json(beneficiaire);
+  })
+  .catch((err) =>{
+    res.status(500).json({error : err});
+  });
+}
+//end search
+
+//login
+export function login(req , res){
+  Beneficiaire.findOne({email : {$eq : req.body.email} , password : {$eq : req.body.password}})
+  .then((beneficiaire) =>{
+    if(!beneficiaire){
+      return res.status(404).json({ message: 'beneficiaire not found' });
+    }
+    res.status(200).json(beneficiaire);
+  })
+  .catch((err) => {
+    res.status(500).json({ error: err });
+  });
+}
+//end lofin beneficiaire
