@@ -147,7 +147,8 @@ export function getUserById(req, res) { // by username and password
 
 //login connect 
 export function login(req , res){
-  User.findOne({email : {$eq : req.body.email} , password : {$eq : req.body.password}})
+  console.log(req)
+  User.findOne({email : {$eq : req.query.email} , password : {$eq : req.query.password}})
   .then((user) =>{
     if(!user){
       return res.status(404).json({ message: 'User not found' });

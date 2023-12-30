@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { query } from 'express';
 import { body, param } from 'express-validator';
 import { getAllUsers, addUser, getUserById, updateUser, deleteUser ,login , search , resetPassword } from '../controllers/userController.js';
 
@@ -37,7 +37,7 @@ router.route('/users/:id')
 
   router.route('/login')
   
-  .post(
+  .get(
     body('email').isEmail(),
     body('password').isLength({min:6}),
     login
